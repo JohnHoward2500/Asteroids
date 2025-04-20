@@ -8,3 +8,4 @@ ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
 
 player_radius = 20
 player_turn_speed = 300
+player_speed = 200
