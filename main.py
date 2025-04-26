@@ -1,4 +1,5 @@
 # imported files
+import sys
 import pygame
 from constants import *
 from circleshape import CircleShape
@@ -39,12 +40,15 @@ def main():
         updatable.update(dt)
         # ends game if player runs into an asteroid
         for obj in asteroids:
-            obj.check_collision(player)
-        screen.fill("black")
+            if obj.check_collision(player) == True:
+                print("Game Over!")
+                sys.exit()
         # draws objects on screen
+        screen.fill("black")
         for obj in drawable:
             obj.draw(screen)
         pygame.display.flip()
+        # limits fps to 60
         dt = clock.tick(60) / 1000
 
 if __name__ == "__main__":
