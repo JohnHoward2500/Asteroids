@@ -1,4 +1,5 @@
 import pygame
+import sys
 class CircleShape(pygame.sprite.Sprite):
     def __init__ (self, x, y, radius):
         if hasattr(self, "containers"):
@@ -13,7 +14,16 @@ class CircleShape(pygame.sprite.Sprite):
     def draw(self, screen):
         # sub-classes must override
         pass
-    
+
     def update(self, dt):
         # sub-classes must override
         pass
+
+    def check_collision(self, other):
+        distance = pygame.math.Vector2.distance_to(self.position, other.position)
+        if distance <= self.radius + other.radius:
+            print("Game Over!")
+            sys.exit()
+            return True
+        else:
+            return False

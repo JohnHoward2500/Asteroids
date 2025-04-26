@@ -1,3 +1,4 @@
+# imported files
 import pygame
 from constants import *
 from circleshape import CircleShape
@@ -7,8 +8,10 @@ from asteroidfield import AsteroidField
 
 
 def main():
+    #initializes pygame
     pygame.init()   
 
+    #creates groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
@@ -27,13 +30,18 @@ def main():
     Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-
+    # Game Loop
     while True:
+        # X button in top right quits game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
+        # ends game if player runs into an asteroid
+        for obj in asteroids:
+            obj.check_collision(player)
         screen.fill("black")
+        # draws objects on screen
         for obj in drawable:
             obj.draw(screen)
         pygame.display.flip()
