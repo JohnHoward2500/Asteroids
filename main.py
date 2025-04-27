@@ -4,32 +4,34 @@ import pygame
 from constants import *
 from circleshape import CircleShape
 from player import Player
-from asteroid import asteroid
+from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 
 def main():
     #initializes pygame
     pygame.init()   
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
 
     #creates groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
-    asteroidfield = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
-    asteroid.containers = (updatable, drawable, asteroids)
-    AsteroidField.containers = (updatable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = updatable
+    Shot.containers = (shots, drawable, updatable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
-
-    clock = pygame.time.Clock()
+ 
     dt = 0
 
     Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Game Loop
     while True:
@@ -40,7 +42,7 @@ def main():
         updatable.update(dt)
         # ends game if player runs into an asteroid
         for obj in asteroids:
-            if obj.check_collision(player) == True:
+            if obj.check_collision(player):
                 print("Game Over!")
                 sys.exit()
         # draws objects on screen
