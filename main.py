@@ -46,6 +46,9 @@ def main():
             if obj.check_collision(player) == True:
                 print("Game Over!")
                 sys.exit()
+            for bullet in shot:
+                if bullet.check_collision(obj) == True:
+                    obj.kill()
         # draws objects on screen
         screen.fill("black")
         for obj in drawable:
