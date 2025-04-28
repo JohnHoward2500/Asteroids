@@ -48,6 +48,7 @@ def main():
                 sys.exit()
             for bullet in shot:
                 if bullet.check_collision(obj) == True:
+                    bullet.kill()
                     obj.kill()
         # draws objects on screen
         screen.fill("black")
