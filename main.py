@@ -50,6 +50,7 @@ def main():
                 if bullet.check_collision(obj) == True:
                     bullet.kill()
                     obj.kill()
+                    obj.split()
         # draws objects on screen
         screen.fill("black")
         for obj in drawable:
