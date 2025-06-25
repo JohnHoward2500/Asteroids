@@ -10,6 +10,8 @@ from shot import Shot
 
 
 def main():
+    game_score = 0
+    asteroids_destroyed = 0
     #initializes pygame
     pygame.init()   
 
@@ -36,6 +38,7 @@ def main():
 
     # Game Loop
     while True:
+        game_score += 1
         # X button in top right quits game
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,12 +48,17 @@ def main():
         for obj in asteroids:
             if obj.check_collision(player) == True:
                 print("Game Over!")
+                print(f"Score: {game_score}")
+                print(f"Asteroids Destroyed: {asteroids_destroyed}")
                 sys.exit()
             for bullet in shot:
                 if bullet.check_collision(obj) == True:
                     bullet.kill()
-                    
                     obj.split()
+                    
+                    # increase score by 1000 for each asteroid destroyed
+                    game_score += 1000
+                    asteroids_destroyed += 1
         # draws objects on screen
         screen.fill("black")
         for obj in drawable:
