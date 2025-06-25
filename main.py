@@ -5,7 +5,9 @@ from constants import *
 from circleshape import CircleShape
 from player import Player
 from asteroid import Asteroid
+from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 from shot import Shot
 
 
@@ -14,6 +16,8 @@ def main():
     asteroids_destroyed = 0
     #initializes pygame
     pygame.init()   
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
 
     #creates groups
     updatable = pygame.sprite.Group()
@@ -29,12 +33,10 @@ def main():
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
-
-    clock = pygame.time.Clock()
+ 
     dt = 0
 
     Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Game Loop
     while True:
@@ -46,7 +48,7 @@ def main():
         updatable.update(dt)
         # ends game if player runs into an asteroid
         for obj in asteroids:
-            if obj.check_collision(player) == True:
+            if obj.check_collision(player):
                 print("Game Over!")
                 print(f"Score: {game_score}")
                 print(f"Asteroids Destroyed: {asteroids_destroyed}")
